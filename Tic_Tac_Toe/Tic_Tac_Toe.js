@@ -4,6 +4,8 @@
     // Make a tic tac toe array to hold a value for each 3x3 cell
     let tttArray = [1,2,3,4,5,6,7,8,9];
 
+    //TEST
+    
     // Make a winning numbers array to check if a player has a winning combo
     let winningNumbers = [
         [1,2,3],
