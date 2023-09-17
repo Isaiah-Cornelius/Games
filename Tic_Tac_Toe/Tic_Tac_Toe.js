@@ -1,8 +1,59 @@
 (function (){
     "use strict";
 
+    //Disable the submit button for the number of players form initially (until a choice is selected)
+    $("#numberOfPlayersFormSubmit").prop('disabled', true);
+
+    //Enable the submit button for the number of players form once a choice has been selected.
+    //Deselct the other radio button
+    $("#1Player").on('click', function(){
+        $("#numberOfPlayersFormSubmit").prop('disabled', false);
+        $("#2Players").prop('checked', false);
+    })
+
+    $("#2Players").on('click', function () {
+        $("#numberOfPlayersFormSubmit").prop('disabled', false);
+        $("#1Player").prop('checked', false);
+    })
+
+    //Prevent get request
+    //TODO build out which divs to show based on which choice was selected
+    $("#numberOfPlayersForm").submit(function (e) {
+        e.preventDefault();
+        console.log(e.target[0].checked);
+    });
+
+    //Disable player name form submit button (until a value is entered)
+    $("#playerNameFormSubmit").prop('disabled', true);
+
+    //Check the value of the playerName text input, must not be empty, must not be tobbot
+    function checkPlayerNameNotTobbot(name) {
+        if (name.length === 0) {
+            $("#playerNameFormSubmit").prop('disabled', true);
+            $("#nameIsTobbot").css("display", "none");
+        } else if (name.toLowerCase() === 'tobbot') {
+            $("#playerNameFormSubmit").prop('disabled', true);
+            $("#nameIsTobbot").css("display", "block");
+        } else {
+            $("#playerNameFormSubmit").prop('disabled', false);
+            $("#nameIsTobbot").css("display", "none");
+        }
+    };
+
+    //Call checkPlayerNameNotTobbot function when playerName input keyup event is triggered
+    $("#playerName").keyup(function () {
+        checkPlayerNameNotTobbot($("#playerName").val());
+    });
+
+    //Hide 'Tobbot's name is taken' div initially
+    $("#nameIsTobbot").css("display", "none");
+
+
+
+
     //TODO:
-    // Make number of players selection div
+    // Create rules for 2 player inputs and submit button
+    // Hide/display single player or two player divs based on number of players choice
     // call beginGame funcion with appropriate inputs
     // Make bot logic
     

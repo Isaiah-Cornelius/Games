@@ -7,7 +7,44 @@
 </head>
 <body>
 <h1>Tic Tac Toe</h1>
-<div id="numberOfPlayers"></div>
+<div id="setup">
+    <div id="numberOfPlayersDiv">
+        <h2>Number of Players?</h2>
+        <form id="numberOfPlayersForm">
+            <input type="radio" id="1Player" value="1">
+            <label for="1Player">1 Player</label><br>
+            <input type="radio" id="2Players" value="2">
+            <label for="2Players">2 Players</label><br>
+            <input type="submit" id="numberOfPlayersFormSubmit">
+        </form>
+    </div>
+    <br>
+    <div id="1PlayerGame">
+        <form>
+            <label for="playerName">Player Name</label>
+            <input type="text" id="playerName" name="playerName"><br>
+            <div id="nameIsTobbot">
+                <h2>Sorry, I get to be Tobbot...</h2>
+            </div>
+            <input type="submit" id="playerNameFormSubmit">
+        </form>
+    </div>
+    <br>
+    <div id="2PlayerGame">
+        <form>
+            <label for="player1Name">Player 1 Name</label>
+            <input type="text" id="player1Name" name="player1Name">
+            <br>
+            <label for="player2Name">Player 2 Name</label>
+            <input type="text" id="player2Name" name="player2Name">
+            <br>
+            <input type="submit">
+        </form>
+        
+
+    </div>
+    
+</div>
 <div id="playerTurnDiv"></div>
 <div id="gridContainer">
     <div class="row">
