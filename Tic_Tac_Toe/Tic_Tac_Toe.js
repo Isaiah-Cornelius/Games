@@ -1,4 +1,4 @@
-(function (){
+(function () {
     "use strict";
 
     //Disable the submit button for the number of players form initially (until a choice is selected)
@@ -6,7 +6,7 @@
 
     //Enable the submit button for the number of players form once a choice has been selected.
     //Deselct the other radio button
-    $("#1Player").on('click', function(){
+    $("#1Player").on('click', function () {
         $("#numberOfPlayersFormSubmit").prop('disabled', false);
         $("#2Players").prop('checked', false);
     })
@@ -26,30 +26,137 @@
     //Disable player name form submit button (until a value is entered)
     $("#playerNameFormSubmit").prop('disabled', true);
 
-    //Check the value of the playerName text input, must not be empty, must not be tobbot
-    function checkPlayerNameNotTobbot(name) {
-        if (name.length === 0) {
-            $("#playerNameFormSubmit").prop('disabled', true);
-            $("#nameIsTobbot").css("display", "none");
-        } else if (name.toLowerCase() === 'tobbot') {
-            $("#playerNameFormSubmit").prop('disabled', true);
-            $("#nameIsTobbot").css("display", "block");
+    // Create validation function to check that an arguement is not empty
+    function checkNameHasLength(name) {
+        if (name.length > 0) {
+            return true;
         } else {
-            $("#playerNameFormSubmit").prop('disabled', false);
-            $("#nameIsTobbot").css("display", "none");
+            return false;
         }
     };
 
-    //Call checkPlayerNameNotTobbot function when playerName input keyup event is triggered
+    // Create validation function to check that the arguement is not 'tobbot'
+    function checkNameNotEqualTobbot(name) {
+        if (name.toLowerCase() !== 'tobbot') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    // Create validation function to check that the arguement is not 'dill'
+    function checkNameNotEqualDill(name) {
+        if (name.toLowerCase() !== 'dill') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    // Create validation function to check that the arguements are not the same
+    function checkNamesNotSame(name1, name2) {
+        if (name1.toLowerCase() !== name2.toLowerCase()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    // Create a function to hide error divs
+    function hideErrorDivs() {
+        $("#nameIsTobbot").css("display", "none");
+        $("#nameIsDill").css("display", "none");
+        $("#nameIsEmpty").css("display", "none");
+        $("#namesMatch").css("display", "none");
+    }
+
+    // Check if the player name is valid
+    // Cannot be empty, 'tobbot', or 'dill'
+    function checkSinglePlayerNameValid(name) {
+        hideErrorDivs();
+        if (checkNameHasLength(name) &&
+            checkNameNotEqualTobbot(name) &&
+            checkNameNotEqualDill(name)) {
+            $("#playerNameFormSubmit").prop('disabled', false);
+            return true;
+        }
+        if (!checkNameHasLength(name)) {
+            $("#playerNameFormSubmit").prop('disabled', true);
+            $("#nameIsEmpty").css("display", "block");
+        }
+        if (!checkNameNotEqualTobbot(name)) {
+            $("#playerNameFormSubmit").prop('disabled', true);
+            $("#nameIsTobbot").css("display", "block");
+        }
+        if (!checkNameNotEqualDill(name)) {
+            $("#playerNameFormSubmit").prop('disabled', true);
+            $("#nameIsDill").css("display", "block");
+        }
+        return false;
+    };
+
+    // Call checkSinglePlayerNameValid function when playerName input keyup event is triggered
     $("#playerName").keyup(function () {
-        checkPlayerNameNotTobbot($("#playerName").val());
+        checkSinglePlayerNameValid($("#playerName").val());
     });
 
-    //Hide 'Tobbot's name is taken' div initially
+    // Check if both player names are valid
+    function checkTwoPlayerNamesValid(name1, name2) {
+        hideErrorDivs();
+        if (
+            checkNameHasLength(name1) &&
+            checkNameNotEqualTobbot(name1) &&
+            checkNameNotEqualDill(name1) &&
+            checkNameHasLength(name2) &&
+            checkNameNotEqualTobbot(name2) &&
+            checkNameNotEqualDill(name2) &&
+            checkNamesNotSame(name1, name2)) {
+            $("#twoPlayerGameFormSubmit").prop('disabled', false);
+            return true;
+        }
+        if ((!checkNameHasLength(name1)) || (!checkNameHasLength(name2))) {
+            $("#twoPlayerGameFormSubmit").prop('disabled', true);
+            $("#nameIsEmpty").css("display", "block");
+        }
+        if ((!checkNameNotEqualTobbot(name1)) || (!checkNameNotEqualTobbot(name2))) {
+            $("#twoPlayerGameFormSubmit").prop('disabled', true);
+            $("#nameIsTobbot").css("display", "block");
+        }
+        if ((!checkNameNotEqualDill(name1)) || (!checkNameNotEqualDill(name2))) {
+            $("#twoPlayerGameFormSubmit").prop('disabled', true);
+            $("#nameIsDill").css("display", "block");
+        }
+        if (!checkNamesNotSame(name1, name2)) {
+            $("#twoPlayerGameFormSubmit").prop('disabled', true);
+            $("#namesMatch").css("display", "block");
+        }
+        return false;
+    };
+
+    // Call checkTwoPlayerNamesValid function when player1Name input keyup event is triggered
+    $("#player1Name").keyup(function () {
+        checkTwoPlayerNamesValid($("#player1Name").val(), $("#player2Name").val());
+    });
+
+    // Call checkTwoPlayerNamesValid function when player2Name input keyup event is triggered
+    $("#player2Name").keyup(function () {
+        checkTwoPlayerNamesValid($("#player1Name").val(), $("#player2Name").val());
+    });
+
+    // Hide 'Tobbot's name is taken' div initially
     $("#nameIsTobbot").css("display", "none");
 
+    // Hide 'Dill's name is taken' div initialy
+    $("#nameIsDill").css("display", "none");
 
+    // Hide 'Name is empty' div initially
+    $("#nameIsEmpty").css("display", "none");
 
+    // Hide 'Names Match' div initially
+    $("#namesMatch").css("display", "none");
+
+    // Disable two player game form submit button (until valid names are input)
+    $("#twoPlayerGameFormSubmit").prop('disabled', true);
 
     //TODO:
     // Create rules for 2 player inputs and submit button
