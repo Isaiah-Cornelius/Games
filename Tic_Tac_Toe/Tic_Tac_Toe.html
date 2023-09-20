@@ -18,39 +18,33 @@
             <input type="submit" id="numberOfPlayersFormSubmit">
         </form>
     </div>
-    <br>
-    <div id="nameIsTobbot">
-        <h2>Sorry, I get to be Tobbot...</h2>
-    </div>
-    <div id="nameIsDill">
-        <h2>Sorry, there is only one Dill...</h2>
-    </div>
-    <div id="nameIsEmpty">
-        <h2>Please enter a name</h2>
-    </div>
-    <div id="namesMatch">
-        <h2>Please choose different names</h2>
-    </div>
-    <div id="1PlayerGame">
+    <div id="playerNameFormDiv">
+        <div id="nameIsEmptyErrorDiv">
+            <h2>Please enter your name</h2>
+        </div>
+        <div id="nameIsTobbotErrorDiv">
+            <h2>Sorry, you can not be Tobbot...</h2>
+        </div>
+        <div id="nameIsDillErrorDiv">
+            <h2>Sorry, you can not be Dill...</h2>
+        </div>
+        <div id="namesMatchErrorDiv">
+            <h2>Your names can not be the same...</h2>
+        </div>
+
         <form>
-            <label for="playerName">Player Name</label>
-            <input type="text" id="playerName" name="playerName"><br>
+            <div id="player1NameDiv">
+                <label for="player1Name">Player 1 Name</label>
+                <input type="text" class="playerNameTextInput" id="player1Name" name="player1Name">
+            </div>
+            <br>
+            <div id="player2NameDiv">
+                 <label for="player2Name">Player 2 Name</label>
+                <input type="text" class="playerNameTextInput" id="player2Name" name="player2Name">
+            </div>
+            <br>
             <input type="submit" id="playerNameFormSubmit">
         </form>
-    </div>
-    <br>
-    <div id="2PlayerGame">
-        <form>
-            <label for="player1Name">Player 1 Name</label>
-            <input type="text" id="player1Name" name="player1Name">
-            <br>
-            <label for="player2Name">Player 2 Name</label>
-            <input type="text" id="player2Name" name="player2Name">
-            <br>
-            <input type="submit" id="twoPlayerGameFormSubmit">
-        </form>
-        
-
     </div>
     
 </div>
